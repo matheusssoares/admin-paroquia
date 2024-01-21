@@ -1,0 +1,22 @@
+nb-card {
+    width: 30%;
+}
+.center-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.center-form {
+  text-align: center;
+}
+.logo {
+    display: block;
+  img {
+    display: block;
+    margin: 16px auto;
+    width: 20em;
+    height: auto;
+  }
+}
