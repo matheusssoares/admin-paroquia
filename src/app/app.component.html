@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+@if (displayBaseTemplate) {
+<nb-layout>
+  <h3>carregou</h3>
+  <nb-layout-header subheader>
+    <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+  </nb-layout-header>
+  <nb-sidebar></nb-sidebar>
+  <nb-layout-column class="colored-column-basic">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>
+} @else {
+<nb-layout>
+  <nb-layout-column class="colored-column-basic">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>
+}

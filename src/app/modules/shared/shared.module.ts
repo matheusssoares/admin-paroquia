@@ -1,23 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
-  NbSidebarModule,
   NbButtonModule,
   NbCardModule,
   NbFocusMonitor,
   NbFormFieldModule,
+  NbIconModule,
   NbInputModule,
   NbLayoutModule,
+  NbSidebarModule,
+  NbSidebarService,
   NbStatusService,
   NbThemeModule,
-  NbThemeService,
-  NbSidebarService,
-  NbIconModule,
-  NbIconLibraries,
+  NbThemeService
 } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     NbSidebarModule,
@@ -39,7 +39,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbFormFieldModule,
     NbInputModule,
     NbIconModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
   ],
   providers: [
     NbThemeService,
