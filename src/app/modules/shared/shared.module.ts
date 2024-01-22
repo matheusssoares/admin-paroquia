@@ -9,15 +9,15 @@ import {
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
+  NbMenuModule,
   NbSidebarModule,
   NbSidebarService,
   NbStatusService,
   NbThemeModule,
-  NbThemeService
+  NbThemeService,
 } from '@nebular/theme';
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     NbSidebarModule,
@@ -29,6 +29,7 @@ import {
     NbInputModule,
     NbIconModule,
     NbEvaIconsModule,
+    NbMenuModule.forRoot(),
   ],
   exports: [
     NbSidebarModule,
@@ -40,6 +41,7 @@ import {
     NbInputModule,
     NbIconModule,
     NbEvaIconsModule,
+    NbMenuModule,
   ],
   providers: [
     NbThemeService,
