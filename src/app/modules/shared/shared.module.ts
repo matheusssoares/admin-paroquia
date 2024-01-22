@@ -16,6 +16,8 @@ import {
   NbStatusService,
   NbThemeModule,
   NbThemeService,
+  NbToastrModule,
+  NbToastrService,
 } from '@nebular/theme';
 @NgModule({
   declarations: [],
@@ -31,7 +33,8 @@ import {
     NbIconModule,
     NbEvaIconsModule,
     NbMenuModule.forRoot(),
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbToastrModule.forRoot({})
   ],
   exports: [
     NbSidebarModule,
@@ -44,13 +47,15 @@ import {
     NbIconModule,
     NbEvaIconsModule,
     NbMenuModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbToastrModule
   ],
   providers: [
     NbThemeService,
     NbStatusService,
     NbFocusMonitor,
     NbSidebarService,
+    NbToastrService
   ],
 })
 export class SharedModule {}

@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbGlobalPhysicalPosition } from '@nebular/theme';
 import { SharedModule } from '../../modules/shared/shared.module';
+import { AuthService } from '../../services/auth.service';
 import { ChangeTemplateService } from '../../services/change-template.service';
 
 @Component({
@@ -9,26 +16,27 @@ import { ChangeTemplateService } from '../../services/change-template.service';
   standalone: true,
   imports: [SharedModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [AuthService, ChangeTemplateService],
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
-  loading: boolean = false;
+  public loading: boolean = false;
+  physicalPositions = NbGlobalPhysicalPosition;
+  showPassword = true;
   constructor(
-    private changeTemplateService: ChangeTemplateService,
+    private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router
-    ) {      
-
-  }
+    private router: Router,
+    private changeService: ChangeTemplateService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],     
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-  showPassword = true;
 
   getInputType() {
     if (this.showPassword) {
@@ -41,15 +49,36 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  goTo(path: string) {
-    this.changeTemplateService.changeTemplate(true);
-    this.router.navigateByUrl(path);
-  }
-
-  onSubmit() {
+  async onSubmit() {
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false
-    }, 3000)
+
+    try {
+      const result = await this.authService.loginUserEmailAndPassword(
+        this.form.value.email,
+        this.form.value.password
+      );
+      if (result) {
+        this.loading = false;
+        this.changeService.showToastr(
+          'Login efetuado com sucesso',
+          'Parabéns',
+          {
+            duration: 3000,
+            position: this.physicalPositions.TOP_RIGHT,
+            status: 'success',
+          }
+        );
+
+        this.router.navigateByUrl('admin/dashboard');
+      }
+    } catch (err) {
+      this.loading = false;
+      this.changeService.detectChange();
+      this.changeService.showToastr('Erro ao efetuar login', 'Putzzzz!', {
+        duration: 3000,
+        position: this.physicalPositions.TOP_RIGHT,
+        status: 'danger',
+      });
+    }
   }
 }
