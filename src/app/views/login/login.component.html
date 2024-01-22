@@ -1,49 +1,61 @@
-<nb-card size="large" class="center-column">
+<nb-card
+  size="large"
+  class="center-column"
+  [nbSpinner]="loading"
+  nbSpinnerStatus="danger"
+>
   <nb-card-body>
     <div class="content">
       <div class="logo">
         <img src="../../../assets/imgs/logo.png" alt="Logo" />
       </div>
-      <nb-form-field class="center-form">
-        <nb-icon nbSuffix icon="email-outline" pack="eva"></nb-icon>
-        <input
-          placeholder="Digite seu e-mail"
-          size="large"
-          fullWidth=""
-          type="text"
-          nbInput
-        />
-      </nb-form-field>
-      <nb-form-field class="center-form mg-top-16">
-        <input
-          placeholder="Digite sua senha"
-          size="large"
-          fullWidth=""
-          [type]="getInputType()"
-          nbInput
-        />
-        <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
-          <nb-icon
-            [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
-            pack="eva"
-            [attr.aria-label]="showPassword ? 'hide password' : 'show password'"
-          >
-          </nb-icon>
-        </button>
-      </nb-form-field>
-      <p class="f-right">Esqueci minha senha</p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <nb-form-field class="center-form">
+          <nb-icon nbSuffix icon="email-outline" pack="eva"></nb-icon>
+          <input
+            placeholder="Digite seu e-mail"
+            size="large"
+            fullWidth=""
+            type="text"
+            nbInput
+            formControlName="email"
+          />
+        </nb-form-field>
+        <nb-form-field class="center-form mg-top-16">
+          <input
+            placeholder="Digite sua senha"
+            size="large"
+            fullWidth=""
+            [type]="getInputType()"
+            nbInput
+            formControlName="password"
+          />
+          <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
+            <nb-icon
+              [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+              pack="eva"
+              [attr.aria-label]="
+                showPassword ? 'hide password' : 'show password'
+              "
+            >
+            </nb-icon>
+          </button>
+        </nb-form-field>
+        <p class="f-right">Esqueci minha senha</p>
 
-      <button
-        (click)="goTo('admin/dashboard')"
-        class="mg-top-16"
-        size="large"
-        nbButton
-        hero
-        fullWidth=""
-        status="primary"
-      >
-        Entrar
-      </button>
+        <button
+          class="mg-top-16"
+          size="large"
+          nbButton
+          hero
+          fullWidth=""
+          status="primary"
+          type="submit"
+          [disabled]="!form.valid"
+        >
+          Entrar
+        </button>
+      </form>
     </div>
   </nb-card-body>
 </nb-card>

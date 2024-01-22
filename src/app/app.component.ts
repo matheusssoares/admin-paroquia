@@ -8,13 +8,16 @@ import { ChangeTemplateService } from './services/change-template.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SharedModule],
+  imports: [
+    RouterOutlet, 
+    SharedModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  displayBaseTemplate: boolean = true;
+  displayBaseTemplate!: boolean;
   subscription: Array<Subscription> = [];
   items: NbMenuItem[] = [
     {
@@ -84,7 +87,7 @@ export class AppComponent implements OnInit {
     private sidebarService: NbSidebarService
   ) {}
   ngOnInit(): void {
-    //this.getInitialTemplate();
+    this.getInitialTemplate();
   }
 
   getInitialTemplate() {

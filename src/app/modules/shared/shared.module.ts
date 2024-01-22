@@ -12,6 +12,7 @@ import {
   NbMenuModule,
   NbSidebarModule,
   NbSidebarService,
+  NbSpinnerModule,
   NbStatusService,
   NbThemeModule,
   NbThemeService,
@@ -30,6 +31,7 @@ import {
     NbIconModule,
     NbEvaIconsModule,
     NbMenuModule.forRoot(),
+    NbSpinnerModule
   ],
   exports: [
     NbSidebarModule,
@@ -42,6 +44,7 @@ import {
     NbIconModule,
     NbEvaIconsModule,
     NbMenuModule,
+    NbSpinnerModule
   ],
   providers: [
     NbThemeService,
