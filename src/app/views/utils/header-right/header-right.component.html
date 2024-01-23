@@ -1,0 +1,16 @@
+<div class="left">
+  <button (click)="logout(dialog)" nbButton status="danger" class="f-right">
+    <nb-icon icon="log-out-outline"></nb-icon> Desconectar
+  </button>
+</div>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Atenção!</nb-card-header>
+    <nb-card-body>Você deseja se desconectar?</nb-card-body>
+    <nb-card-footer>
+      <button status="primary" nbButton (click)="yes()">Confirmar</button>
+      <button nbButton (click)="ref.close()">Cancelar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

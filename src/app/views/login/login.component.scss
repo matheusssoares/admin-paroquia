@@ -1,18 +1,16 @@
 nb-card {
-    width: 30%;
+  width: 30%;
 }
 .center-column {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  margin: auto;
 }
 
 .center-form {
   text-align: center;
 }
 .logo {
-    display: block;
+  display: block;
   img {
     display: block;
     margin: 16px auto;

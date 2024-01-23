@@ -1,21 +1,25 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
-  NbSidebarModule,
   NbButtonModule,
   NbCardModule,
+  NbDialogModule,
   NbFocusMonitor,
   NbFormFieldModule,
+  NbIconModule,
   NbInputModule,
   NbLayoutModule,
+  NbMenuModule,
+  NbSidebarModule,
+  NbSidebarService,
+  NbSpinnerModule,
   NbStatusService,
   NbThemeModule,
   NbThemeService,
-  NbSidebarService,
-  NbIconModule,
-  NbIconLibraries,
+  NbToastrModule,
+  NbToastrService,
 } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,6 +33,10 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbInputModule,
     NbIconModule,
     NbEvaIconsModule,
+    NbMenuModule.forRoot(),
+    NbSpinnerModule,
+    NbToastrModule.forRoot({}),
+    NbDialogModule.forRoot({})
   ],
   exports: [
     NbSidebarModule,
@@ -39,13 +47,18 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbFormFieldModule,
     NbInputModule,
     NbIconModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    NbMenuModule,
+    NbSpinnerModule,
+    NbToastrModule,
+    NbDialogModule
   ],
   providers: [
     NbThemeService,
     NbStatusService,
     NbFocusMonitor,
     NbSidebarService,
+    NbToastrService
   ],
 })
 export class SharedModule {}
