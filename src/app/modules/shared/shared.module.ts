@@ -4,6 +4,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbButtonModule,
   NbCardModule,
+  NbDialogModule,
   NbFocusMonitor,
   NbFormFieldModule,
   NbIconModule,
@@ -34,7 +35,8 @@ import {
     NbEvaIconsModule,
     NbMenuModule.forRoot(),
     NbSpinnerModule,
-    NbToastrModule.forRoot({})
+    NbToastrModule.forRoot({}),
+    NbDialogModule.forRoot({})
   ],
   exports: [
     NbSidebarModule,
@@ -48,7 +50,8 @@ import {
     NbEvaIconsModule,
     NbMenuModule,
     NbSpinnerModule,
-    NbToastrModule
+    NbToastrModule,
+    NbDialogModule
   ],
   providers: [
     NbThemeService,

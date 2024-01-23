@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { NbToastrConfig, NbToastrService } from '@nebular/theme';
+import { NbDialogConfig, NbToastrConfig, NbToastrService } from '@nebular/theme';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -10,8 +10,9 @@ export class ChangeTemplateService {
 
   constructor(
     private toastrService: NbToastrService,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef
   ) { }
+  
 
   changeTemplate(value: boolean) {
     this.isDisplayBaseTemplate.next(value);
@@ -26,5 +27,12 @@ export class ChangeTemplateService {
   }
   detectChange() {
     this.cdr.detectChanges();
+  }
+
+  openDialog(component: string, config: Partial<NbDialogConfig<any>> | undefined) {
+
+    /* this.dialogService.open(ShowcaseDialogComponent, {
+
+    }); */
   }
 }

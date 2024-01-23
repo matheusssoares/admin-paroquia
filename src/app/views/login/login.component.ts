@@ -31,11 +31,19 @@ export class LoginComponent implements OnInit {
     private changeService: ChangeTemplateService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+    await this.getSecao();    
+  }
+
+  async getSecao() {
+    const result = await this.authService.isUserLogged();
+    if(result) {
+      this.router.navigateByUrl('admin/dashboard');
+    }
   }
 
   getInputType() {
@@ -59,6 +67,7 @@ export class LoginComponent implements OnInit {
       );
       if (result) {
         this.loading = false;
+        this.changeService.detectChange();
         this.changeService.showToastr(
           'Login efetuado com sucesso',
           'Parabéns',
@@ -69,7 +78,9 @@ export class LoginComponent implements OnInit {
           }
         );
 
-        this.router.navigateByUrl('admin/dashboard');
+        setTimeout(() => {
+          this.router.navigateByUrl('admin/dashboard');
+        }, 1500)
       }
     } catch (err) {
       this.loading = false;

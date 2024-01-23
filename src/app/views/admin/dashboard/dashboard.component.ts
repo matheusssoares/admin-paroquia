@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { SharedModule } from '../../../modules/shared/shared.module';
 import { ChangeTemplateService } from '../../../services/change-template.service';
+import { HeaderRightComponent } from '../../utils/header-right/header-right.component';
 import { HeaderComponent } from '../../utils/header/header.component';
 import { MenuComponent } from '../../utils/menu/menu.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SharedModule, HeaderComponent, MenuComponent, RouterOutlet],
+  imports: [SharedModule, HeaderComponent, MenuComponent, HeaderRightComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
