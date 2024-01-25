@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+@if (!isLogged) {
+<nb-layout class="login-nb">
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>
+} @else {
+<nb-layout>
+  <nb-layout-header fixed="">
+    <app-header></app-header>
+    <app-header-right></app-header-right>
+  </nb-layout-header>
+  <nb-sidebar>
+    <app-menu></app-menu>
+  </nb-sidebar>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+  <nb-layout-footer fixed="">
+    Desenvolvido por: <strong>Norte Script</strong>
+  </nb-layout-footer>
+</nb-layout>
+}

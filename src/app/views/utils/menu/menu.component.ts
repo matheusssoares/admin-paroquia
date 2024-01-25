@@ -15,11 +15,12 @@ export class MenuComponent {
       title: 'DASHBOARD',
       icon: 'home-outline',
       home: true,
+      link: '../../admin/dashboard'
     },
     {
       title: 'AGENDAS',
       icon: 'calendar-outline',
-      url: 'admin/agendas',
+      link: '../../admin/agendas',
     },
     {
       title: 'NOTÍCIAS',

@@ -19,5 +19,11 @@ export const routes: Routes = [
         loadComponent: () => import('./views/admin/dashboard/dashboard.component').then(c => c.DashboardComponent),
         title: 'Paróquia São Joaquim - Painel de Controle',
         canActivate:[AuthService]
+    },
+    {
+        path: 'admin/agendas',
+        loadComponent: () => import('./views/admin/agendas/agendas.component').then(c => c.AgendasComponent),
+        title: 'Paróquia São Joaquim - Agendas',
+        canActivate: [AuthService]
     }
 ];
