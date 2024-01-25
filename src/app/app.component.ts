@@ -67,6 +67,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.forEach((data) => data.unsubscribe());
+    this.subscription.forEach((data) => {
+      data?.unsubscribe();
+    });
+  
+    // Adiar a recarga da página em 100 milissegundos
+    setTimeout(() => {
+      location.reload();
+    }, 100);
   }
 }

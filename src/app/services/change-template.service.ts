@@ -9,8 +9,8 @@ export class ChangeTemplateService {
   private isDisplayBaseTemplate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private toastrService: NbToastrService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastrService: NbToastrService
   ) { }
   
 
