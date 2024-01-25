@@ -106,39 +106,52 @@ export class AgendasComponent implements OnInit {
 
   async onSubmit() {
     this.loading = true;
-    const data: Agenda = {
-      allDay: this.form.value.allDay,
-      backgroundColor: this.form.value.backgroundColor,
-      description: this.form.value.description,
-      endDateTime: this.form.value.allDay ? null : this.form.value.endDateTime,
-      isPublic: this.form.value.isPublic,
-      repeat: this.form.value.repeat,
-      startDateTime: this.form.value.startDateTime,
-      title: this.form.value.title,
-      address: this.form.value.locale,
-      id: null,
-    };
+
+    const data: Agenda = this.createAgendaData();
 
     try {
-      //const result = await this.databaseService.createData('agendas', data);
+      const result = await this.databaseService.createData('agendas', data);
+
+      if (result) {
+        this.handleMessage(
+          'Evento criado com sucesso.',
+          'Parabéns!',
+          'success'
+        );
+      }
+    } catch (error) {
+      this.handleMessage(
+        'Tivemos um problema interno, desculpe',
+        'Putzzz!',
+        'danger'
+      );
+    } finally {
       this.loading = false;
       this.changeService.detectChange();
-      this.changeService.showToastr('Evento criado com sucesso.', 'Parabéns!', {
-        status: 'success',
-      });
-      /* if (result) {
-        this.loading = false;
-        this.changeService.detectChange();
-        if (this.dialogRef) {
-          this.dialogRef.close();
-        }
-
-        setTimeout(() => {
-          
-        }, 1500);
-      } */
-    } catch (error) {
-      console.log(error);
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
     }
+  }
+
+  private createAgendaData(): Agenda {
+    const { value } = this.form;
+
+    return {
+      allDay: value.allDay,
+      backgroundColor: value.backgroundColor,
+      description: value.description,
+      endDateTime: value.allDay ? null : value.endDateTime,
+      isPublic: value.isPublic,
+      repeat: value.repeat,
+      startDateTime: value.startDateTime,
+      title: value.title,
+      address: value.locale,
+      id: null,
+    };
+  }
+
+  private handleMessage(text: string, title: string, status: string) {
+    this.changeService.showToastr(text, title, { status });
   }
 }
