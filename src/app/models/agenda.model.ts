@@ -11,6 +11,13 @@ export interface Agenda {
     repeat: AGENDA_REPETICOES;
     address?: EnderecoBase | string;
     description: string;
+    dateSelect: string;
+}
+
+export enum EVENTOS_STATUS {
+    CANCELADO = 0,
+    FINALIZADO = 1,
+    PENDENTE = 2
 }
 
 export enum AGENDA_REPETICOES {

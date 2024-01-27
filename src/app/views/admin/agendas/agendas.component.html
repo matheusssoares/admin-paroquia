@@ -8,10 +8,11 @@
       [nbSpinner]="loading"
     >
       <div class="container">
-        @if(!loading && calendarOptions != null) {
+        @if(!loading && calendarOptions) {
         <full-calendar
           class="full-calendar wrapper"
           [options]="calendarOptions"
+          [deepChangeDetection]="true"
         ></full-calendar>
         }
       </div>

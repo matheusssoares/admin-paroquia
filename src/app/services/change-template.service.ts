@@ -1,12 +1,20 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { NbDialogConfig, NbToastrConfig, NbToastrService } from '@nebular/theme';
-import { BehaviorSubject } from 'rxjs';
+import { NbToastrConfig, NbToastrService } from '@nebular/theme';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChangeTemplateService {
   private isDisplayBaseTemplate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private meuSubject = new Subject<string>();
+
+  meuDado$ = this.meuSubject.asObservable();
+
+  updateEvent(value: string) {
+    console.log('Atualizando dado no serviço para:', value);
+    this.meuSubject.next(value);
+  }
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -29,10 +37,4 @@ export class ChangeTemplateService {
     this.cdr.detectChanges();
   }
 
-  openDialog(component: string, config: Partial<NbDialogConfig<any>> | undefined) {
-
-    /* this.dialogService.open(ShowcaseDialogComponent, {
-
-    }); */
-  }
 }

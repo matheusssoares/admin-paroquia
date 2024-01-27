@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,7 +21,8 @@ import { DatabaseService } from '../../../../services/database.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ChangeTemplateService],
 })
-export class FormAgendasComponent {
+export class FormAgendasComponent implements OnInit {
+  dataSelecionada!: string;
   loading: boolean = false;
   public form: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
@@ -39,8 +40,11 @@ export class FormAgendasComponent {
     private databaseService: DatabaseService,
     private fb: FormBuilder,
     private changeService: ChangeTemplateService,
-    protected dialogRef: NbDialogRef<any>
+    protected dialogRef: NbDialogRef<any>,
+    private ngZone: NgZone
   ) {}
+
+  ngOnInit(): void {}
 
   async onSubmit() {
     this.loading = true;
@@ -56,6 +60,10 @@ export class FormAgendasComponent {
           'Parabéns!',
           'success'
         );
+        this.ngZone.run(() => {
+          this.changeService.detectChange();
+          this.close();
+        });
       }
     } catch (error) {
       this.handleMessage(
@@ -84,14 +92,16 @@ export class FormAgendasComponent {
       title: value.title,
       address: value.locale,
       id: null,
+      dateSelect: this.dataSelecionada,
     };
   }
 
   private handleMessage(text: string, title: string, status: string) {
-    //this.changeService.showToastr(text, title, { status });
+    this.changeService.showToastr(text, title, { status });
   }
 
-  close() {
+  close() {    
+    this.changeService.updateEvent('updateChanges');
     this.dialogRef.close();
   }
 }
