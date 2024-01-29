@@ -1,0 +1,174 @@
+<nb-card
+  size="large"
+  class="card-complete"
+  nbSpinnerStatus="danger"
+  nbSpinnerSize="large"
+  nbSpinnerMessage=""
+  [nbSpinner]="loading"
+>
+<nb-card-header>Adicionar</nb-card-header>
+  <form class="padding" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <nb-card-body>
+      <div style="margin-top: -16px;" class="row">
+        <div class="col">
+          <label>Título</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="edit-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="Título"
+              type="text"
+              nbInput
+              fullWidth=""
+              formControlName="title"
+            />
+          </nb-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row mg-top-16">
+        <div class="col">
+          <label>Público alvo</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="alert-circle-outline"></nb-icon>
+            <nb-select
+              formControlName="isPublic"
+              placeholder="Evento destinado"
+              fullWidth=""
+            >
+              <nb-option [value]="true">Público</nb-option>
+              <nb-option [value]="false">Privado</nb-option>
+            </nb-select>
+          </nb-form-field>
+        </div>
+        <div class="col">
+          <label>Recorrência</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="refresh-outline"></nb-icon>
+            <nb-select
+              formControlName="repeat"
+              placeholder="Recorrência"
+              fullWidth=""
+            >
+              <nb-option [value]="0">Não repetir</nb-option>
+              <nb-option [value]="1">Todo dia</nb-option>
+              <nb-option [value]="2">Toda semana</nb-option>
+              <nb-option [value]="3">Toda quinzena</nb-option>
+              <nb-option [value]="4">Todo mês</nb-option>
+              <nb-option [value]="5">Todo ano</nb-option>
+            </nb-select>
+          </nb-form-field>
+        </div>
+      </div>
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Duração do evento</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="clock-outline"></nb-icon>
+            <nb-select
+              formControlName="allDay"
+              placeholder="Hora do evento"
+              fullWidth=""
+            >
+              <nb-option [value]="true">Dia inteiro</nb-option>
+              <nb-option [value]="false">Adicionar hora</nb-option>
+            </nb-select>
+          </nb-form-field>
+        </div>
+
+        @if(this.form.get('allDay')?.value) {
+        <div class="col">
+          <label>Horário de início</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="clock-outline"></nb-icon>
+            <input
+              formControlName="startDateTime"
+              [nbTimepicker]="timepicker"
+              nbInput
+              fullWidth=""
+            />
+            <nb-timepicker #timepicker></nb-timepicker>
+          </nb-form-field>
+        </div>
+        }
+      </div>
+
+      @if(!this.form.get('allDay')?.value) {
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Horário de início</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="clock-outline"></nb-icon>
+            <input
+              formControlName="startDateTime"
+              [nbTimepicker]="timepicker"
+              nbInput
+              fullWidth=""
+            />
+            <nb-timepicker #timepicker></nb-timepicker>
+          </nb-form-field>
+        </div>
+
+        <div class="col">
+          <label>Horário de Término</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="clock-outline"></nb-icon>
+            <input
+              formControlName="endDateTime"
+              [nbTimepicker]="timepicker2"
+              nbInput
+              fullWidth=""
+            />
+            <nb-timepicker #timepicker2></nb-timepicker>
+          </nb-form-field>
+        </div>
+      </div>
+      }
+      <div style="margin-top: 16px" class="row">
+        <div class="col-md-3">
+          <label>Cor de fundo</label>
+          <ngx-colors
+            formControlName="backgroundColor"
+            ngx-colors-trigger
+          ></ngx-colors>
+        </div>
+        <div class="col-md-9">
+          <label>Localização</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="pin-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="Localização"
+              type="text"
+              nbInput
+              fullWidth=""
+              formControlName="locale"
+            />
+          </nb-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Observações</label>
+          <nb-form-field>
+            <textarea
+              formControlName="description"
+              nbInput
+              fullWidth
+              placeholder="Observações"
+              rows="3"
+            ></textarea>
+          </nb-form-field>
+        </div>
+      </div>
+    </nb-card-body>
+
+    <nb-card-footer class="card-footer-agenda">
+      <div class="float-left">
+        <button [disabled]="!form.valid" nbButton type="submit" status="primary">
+            Cadastrar
+          </button>
+          <button nbButton (click)="close()">Cancelar</button>
+      </div>
+    </nb-card-footer>
+  </form>
+</nb-card>

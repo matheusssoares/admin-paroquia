@@ -1,0 +1,22 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card
+      class="container-card"
+      nbSpinnerStatus="danger"
+      nbSpinnerSize="large"
+      nbSpinnerMessage=""
+      [nbSpinner]="loading"
+      (click)="test()"
+    >
+      <div class="container">
+        @if(!loading && calendarOptions) {
+        <full-calendar
+          class="full-calendar wrapper"
+          [options]="calendarOptions"
+          [deepChangeDetection]="true"
+        ></full-calendar>
+        }
+      </div>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

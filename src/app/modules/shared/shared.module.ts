@@ -7,18 +7,22 @@ import {
   NbDialogModule,
   NbFocusMonitor,
   NbFormFieldModule,
+  NbGlobalPhysicalPosition,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
   NbMenuModule,
+  NbNativeDateService,
+  NbSelectModule,
   NbSidebarModule,
   NbSidebarService,
   NbSpinnerModule,
   NbStatusService,
   NbThemeModule,
   NbThemeService,
+  NbTimepickerModule,
   NbToastrModule,
-  NbToastrService,
+  NbToastrService
 } from '@nebular/theme';
 @NgModule({
   declarations: [],
@@ -35,8 +39,13 @@ import {
     NbEvaIconsModule,
     NbMenuModule.forRoot(),
     NbSpinnerModule,
-    NbToastrModule.forRoot({}),
-    NbDialogModule.forRoot({})
+    NbToastrModule.forRoot({
+      position: NbGlobalPhysicalPosition.TOP_RIGHT,
+      duration: 3000
+    }),
+    NbDialogModule.forRoot({}),
+    NbSelectModule,
+    NbTimepickerModule.forRoot()
   ],
   exports: [
     NbSidebarModule,
@@ -51,14 +60,17 @@ import {
     NbMenuModule,
     NbSpinnerModule,
     NbToastrModule,
-    NbDialogModule
+    NbDialogModule,
+    NbSelectModule,
+    NbTimepickerModule
   ],
   providers: [
     NbThemeService,
     NbStatusService,
     NbFocusMonitor,
     NbSidebarService,
-    NbToastrService
+    NbToastrService,
+    NbNativeDateService
   ],
 })
 export class SharedModule {}

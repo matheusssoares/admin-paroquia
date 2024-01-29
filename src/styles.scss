@@ -1,7 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 .mg-top-16 {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 .f-right {
-    float: right;
+  float: right;
+}
+
+//style admin
+nb-layout-header {
+  width: 100% !important;
+}
+app-header-right {
+  display: contents;
+}
+.container-card {
+  padding: 20px;
+}
+.padding {
+  padding: 16px;
+}
+.display-none {
+  display: none;
+}
+.nb-theme-default nb-layout .layout {
+  min-height: unset !important;
+}
+.login-nb {
+  display: block;
+  min-height: 94vh;
+}
+.fc-event-title {
+  white-space: normal !important;
 }
