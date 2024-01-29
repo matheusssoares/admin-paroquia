@@ -12,8 +12,8 @@ export class ChangeTemplateService {
   meuDado$ = this.meuSubject.asObservable();
 
   updateEvent(value: string) {
-    console.log('Atualizando dado no serviço para:', value);
     this.meuSubject.next(value);
+    this.detectChange();
   }
 
   constructor(

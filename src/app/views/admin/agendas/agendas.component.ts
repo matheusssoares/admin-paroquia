@@ -58,7 +58,25 @@ export class AgendasComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.initialize();
+    this.subscription.add(
+      this.changeService.meuDado$.subscribe((novoValor) => {
+        console.log('updated', novoValor);
+        if (novoValor == 'updateChanges2') {
+          //this.events = await this.getEvents();
+        }
+      })
+    );
+    /* this.events = await this.getEvents();
+    await this.getConfigCalendar();
+ */
+    this.loading = false;
+  }
+
+  async initialize() {
+    console.log('initialize');
+
     this.events = await this.getEvents();
     await this.getConfigCalendar();
   }
@@ -172,5 +190,9 @@ export class AgendasComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subject.forEach((a) => a.unsubscribe());
+  }
+
+  test() {
+    this.changeService.updateEvent('updateChanges2');
   }
 }

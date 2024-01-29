@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -40,8 +44,7 @@ export class FormAgendasComponent implements OnInit {
     private databaseService: DatabaseService,
     private fb: FormBuilder,
     private changeService: ChangeTemplateService,
-    protected dialogRef: NbDialogRef<any>,
-    private ngZone: NgZone
+    protected dialogRef: NbDialogRef<any>
   ) {}
 
   ngOnInit(): void {}
@@ -55,15 +58,14 @@ export class FormAgendasComponent implements OnInit {
       const result = await this.databaseService.createData('agendas', data);
 
       if (result) {
+        this.changeService.updateEvent('tambataja');
         this.handleMessage(
           'Evento criado com sucesso.',
           'Parabéns!',
           'success'
         );
-        this.ngZone.run(() => {
-          this.changeService.detectChange();
-          this.close();
-        });
+        this.changeService.detectChange();
+        this.close();
       }
     } catch (error) {
       this.handleMessage(
@@ -100,8 +102,7 @@ export class FormAgendasComponent implements OnInit {
     this.changeService.showToastr(text, title, { status });
   }
 
-  close() {    
-    this.changeService.updateEvent('updateChanges');
+  close() {
     this.dialogRef.close();
   }
 }
