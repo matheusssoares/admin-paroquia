@@ -5,12 +5,15 @@ import {
   OrderByDirection,
   WhereFilterOp,
   collection,
+  deleteDoc,
   doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 
@@ -42,13 +45,32 @@ export class DatabaseService {
   firestore: Firestore = inject(Firestore);
   constructor() {}
 
-  async createData(collecionString: string, data: any): Promise<boolean> {
+  async createData<T>(collecionString: string, data: any): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       const collectionData = collection(this.firestore, collecionString);
       const documentKey = doc(collectionData);
       data.id = documentKey;
 
       await setDoc(documentKey, data)
+        .then(() => {
+          resolve(true);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+  async updateData<T>(
+    collecionString: string,
+    id: string,
+    data: any
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const ref = doc(this.firestore, collecionString, id);
+      const update = updateDoc(ref, data);
+
+      update
         .then(() => {
           resolve(true);
         })
@@ -85,6 +107,33 @@ export class DatabaseService {
         id: doc.id,
         ...doc.data(),
       } as T;
+    });
+  }
+
+  getDataById<T>(coll: string, id: string): Promise<T | undefined> {
+    return new Promise(async (resolve, reject) => {
+      const docRef = doc(this.firestore, coll, id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        resolve(docSnap.data() as T);
+      } else {
+        reject(undefined);
+      }
+    });
+  }
+
+  deleteData(collecionString: string, id: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const docRef = doc(this.firestore, collecionString, id);
+      const remove = deleteDoc(docRef);
+      remove
+        .then(() => {
+          resolve(true);
+        })
+        .catch((err) => {
+          reject(err);
+        });
     });
   }
 }

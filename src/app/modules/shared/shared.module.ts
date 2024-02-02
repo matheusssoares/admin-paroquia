@@ -4,6 +4,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbButtonModule,
   NbCardModule,
+  NbDatepickerModule,
   NbDialogModule,
   NbFocusMonitor,
   NbFormFieldModule,
@@ -41,11 +42,12 @@ import {
     NbSpinnerModule,
     NbToastrModule.forRoot({
       position: NbGlobalPhysicalPosition.TOP_RIGHT,
-      duration: 3000
+      duration: 3000,
     }),
     NbDialogModule.forRoot({}),
     NbSelectModule,
-    NbTimepickerModule.forRoot()
+    NbTimepickerModule.forRoot(),
+    NbDatepickerModule.forRoot(),
   ],
   exports: [
     NbSidebarModule,
@@ -62,7 +64,8 @@ import {
     NbToastrModule,
     NbDialogModule,
     NbSelectModule,
-    NbTimepickerModule
+    NbTimepickerModule,
+    NbDatepickerModule,
   ],
   providers: [
     NbThemeService,
@@ -70,7 +73,7 @@ import {
     NbFocusMonitor,
     NbSidebarService,
     NbToastrService,
-    NbNativeDateService
+    NbNativeDateService,
   ],
 })
 export class SharedModule {}

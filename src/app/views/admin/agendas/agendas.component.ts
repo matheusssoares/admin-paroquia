@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Optional, inject } from '@angular/core';
 import { CalendarModule } from '../../../modules/shared/calendar.module';
 import { SharedModule } from '../../../modules/shared/shared.module';
 import { HeaderRightComponent } from '../../utils/header-right/header-right.component';
@@ -16,7 +16,7 @@ import ptbr from '@fullcalendar/core/locales/pt-br';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import rrulePlugin from '@fullcalendar/rrule';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { format } from 'date-fns';
@@ -28,6 +28,7 @@ import {
   OrderByCondition,
   WhereCondition,
 } from '../../../services/database.service';
+import { SubjectService } from '../../../services/subject.service';
 import { FormAgendasComponent } from '../../admin/agendas/form-agendas/form-agendas.component';
 
 @Component({
@@ -51,32 +52,32 @@ export class AgendasComponent implements OnInit, OnDestroy {
   public loading: boolean = true;
   subject: Array<Subscription> = [];
   public events: any = [];
-  private subscription: Subscription = new Subscription();
+  public subjectChanges = inject(SubjectService);
   constructor(
     private changeService: ChangeTemplateService,
     private dialogService: NbDialogService,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    @Optional() private dialogRef: NbDialogRef<any>
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.initialize();
-    this.subscription.add(
-      this.changeService.meuDado$.subscribe((novoValor) => {
-        console.log('updated', novoValor);
-        if (novoValor == 'updateChanges2') {
-          //this.events = await this.getEvents();
+
+    const sub = this.subjectChanges.getSubject().subscribe((value: string) => {
+      if (value === 'UPDATE_CHANGES') {
+        this.initialize();
+        if(this.dialogRef) {
+          this.dialogRef.close();
         }
-      })
-    );
-    /* this.events = await this.getEvents();
-    await this.getConfigCalendar();
- */
+      }
+    });
+
+    this.subject.push(sub);
+
     this.loading = false;
   }
 
   async initialize() {
-    console.log('initialize');
-
     this.events = await this.getEvents();
     await this.getConfigCalendar();
   }
@@ -93,6 +94,7 @@ export class AgendasComponent implements OnInit, OnDestroy {
       locale: ptbr,
       events: this.events,
       dateClick: this.open.bind(this),
+      eventClick: this.eventClicks.bind(this),
       headerToolbar: {
         start: 'today prev,next',
         center: 'title',
@@ -135,6 +137,8 @@ export class AgendasComponent implements OnInit, OnDestroy {
       const eventNew: Array<EventInput> = [];
 
       results?.forEach((agenda: Agenda) => {
+        const validarId: any = agenda.id;
+        const uid = validarId.id ? validarId.id : validarId;
         let freq;
         let interval;
 
@@ -172,6 +176,7 @@ export class AgendasComponent implements OnInit, OnDestroy {
           date: agenda.dateSelect,
           backgroundColor: agenda.backgroundColor,
           allDay: agenda.allDay,
+          id: uid,
           ...(agenda.repeat !== AGENDA_REPETICOES.NAO_REPETIR && {
             rrule: {
               freq,
@@ -188,11 +193,19 @@ export class AgendasComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subject.forEach((a) => a.unsubscribe());
+  eventClicks(eventCalendar: any) {
+    console.log(eventCalendar.event.id);
+
+    this.dialogRef = this.dialogService.open(FormAgendasComponent, {
+      context: {
+        id: eventCalendar.event.id,
+      },
+      autoFocus: true,
+      closeOnBackdropClick: true,
+    });
   }
 
-  test() {
-    this.changeService.updateEvent('updateChanges2');
+  ngOnDestroy(): void {
+    this.subject.forEach((a) => a.unsubscribe());
   }
 }
