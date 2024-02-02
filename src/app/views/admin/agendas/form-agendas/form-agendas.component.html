@@ -175,8 +175,10 @@
         >
           Atualizar
         </button>
-        <button type="button" nbButton status="danger" (click)="remove(dialog)">Excluir</button>
-        <button nbButton (click)="close()">Cancelar</button>
+        <button type="button" nbButton status="danger" (click)="remove(dialog)">
+          Excluir
+        </button>
+        <button type="button" nbButton (click)="close()">Cancelar</button>
 
         } @else {
         <button
@@ -199,8 +201,10 @@
     <nb-card-header>Atenção!</nb-card-header>
     <nb-card-body>Você deseja excluir este evento?</nb-card-body>
     <nb-card-footer>
-      <button status="primary" nbButton (click)="yes()">Confirmar</button>
-      <button nbButton (click)="ref.close()">Cancelar</button>
+      <button type="button" status="primary" nbButton (click)="yes()">
+        Confirmar
+      </button>
+      <button type="button" nbButton (click)="ref.close()">Cancelar</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

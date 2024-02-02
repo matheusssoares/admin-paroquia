@@ -70,6 +70,12 @@ export class AgendasComponent implements OnInit, OnDestroy {
           this.dialogRef.close();
         }
       }
+
+      if(value === 'CLOSE_MODAL') {
+        if(this.dialogRef) {
+          this.dialogRef.close();
+        }
+      }
     });
 
     this.subject.push(sub);
@@ -194,11 +200,9 @@ export class AgendasComponent implements OnInit, OnDestroy {
   }
 
   eventClicks(eventCalendar: any) {
-    console.log(eventCalendar.event.id);
-
     this.dialogRef = this.dialogService.open(FormAgendasComponent, {
       context: {
-        id: eventCalendar.event.id,
+        id: eventCalendar.event.id
       },
       autoFocus: true,
       closeOnBackdropClick: true,

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Optional,
   TemplateRef,
   inject,
 } from '@angular/core';
@@ -49,7 +50,7 @@ export class FormAgendasComponent implements OnInit {
     private databaseService: DatabaseService,
     private fb: FormBuilder,
     private changeService: ChangeTemplateService,
-    private dialogRef: NbDialogRef<any>,
+    @Optional() private dialogRef: NbDialogRef<any>,
     private dialogService: NbDialogService
   ) {}
 
@@ -163,8 +164,10 @@ export class FormAgendasComponent implements OnInit {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close()
+    this.subjectChanges.setUpdate('CLOSE_MODAL');
   }
+
   remove(dialog: TemplateRef<any>) {
     this.dialogRef = this.dialogService.open(dialog, {
       hasBackdrop: true,
@@ -184,10 +187,10 @@ export class FormAgendasComponent implements OnInit {
           'Parabéns!',
           'success'
         );
-      
+
         this.changeService.detectChange();
 
-        this.dialogRef.close()
+        this.dialogRef.close();
       }
     } catch (err) {
       console.log(err);
