@@ -1,7 +1,7 @@
 import { EnderecoBase } from "./comuns.models";
 
 export interface Agenda {
-    id?: string | null;
+    id?: string | undefined;
     title: string;
     isPublic: boolean;
     backgroundColor: string;

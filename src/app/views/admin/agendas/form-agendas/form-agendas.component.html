@@ -6,10 +6,12 @@
   nbSpinnerMessage=""
   [nbSpinner]="loading"
 >
-<nb-card-header>Adicionar</nb-card-header>
+  <nb-card-header class="uppercase">
+    @if (id) { Atualizar evento } @else { Adicionar evento }
+  </nb-card-header>
   <form class="padding" [formGroup]="form" (ngSubmit)="onSubmit()">
     <nb-card-body>
-      <div style="margin-top: -16px;" class="row">
+      <div style="margin-top: -16px" class="row">
         <div class="col">
           <label>Título</label>
           <nb-form-field>
@@ -164,11 +166,45 @@
 
     <nb-card-footer class="card-footer-agenda">
       <div class="float-left">
-        <button [disabled]="!form.valid" nbButton type="submit" status="primary">
-            Cadastrar
-          </button>
-          <button nbButton (click)="close()">Cancelar</button>
+        @if(id) {
+        <button
+          [disabled]="!form.valid"
+          nbButton
+          type="submit"
+          status="success"
+        >
+          Atualizar
+        </button>
+        <button type="button" nbButton status="danger" (click)="remove(dialog)">
+          Excluir
+        </button>
+        <button type="button" nbButton (click)="close()">Cancelar</button>
+
+        } @else {
+        <button
+          [disabled]="!form.valid"
+          nbButton
+          type="submit"
+          status="primary"
+        >
+          Cadastrar
+        </button>
+        <button type="button" nbButton (click)="close()">Cancelar</button>
+        }
       </div>
     </nb-card-footer>
   </form>
 </nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Atenção!</nb-card-header>
+    <nb-card-body>Você deseja excluir este evento?</nb-card-body>
+    <nb-card-footer>
+      <button type="button" status="primary" nbButton (click)="yes()">
+        Confirmar
+      </button>
+      <button type="button" nbButton (click)="ref.close()">Cancelar</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

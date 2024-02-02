@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription.forEach((data) => {
       data?.unsubscribe();
     });
-  
+
     // Adiar a recarga da página em 100 milissegundos
     setTimeout(() => {
       location.reload();
