@@ -25,7 +25,7 @@ export class MenuComponent {
     {
       title: 'NOTÍCIAS',
       icon: 'message-square-outline',
-      url: 'admin/noticias',
+      link: '../../admin/noticias',
     },
     {
       title: 'COMUNIDADES',

@@ -1,0 +1,64 @@
+<nb-card
+  size="large"
+  class="card-complete"
+  nbSpinnerStatus="danger"
+  nbSpinnerSize="large"
+  nbSpinnerMessage=""
+  [nbSpinner]="loading"
+>
+  <nb-card-header class="uppercase">
+    @if (id) { Atualizar notícia } @else { Adicionar notícia }
+  </nb-card-header>
+  <form class="padding" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <nb-card-body>
+      <div style="margin-top: -16px" class="row">
+        <div class="col">
+          <label>Título</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="edit-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="Título"
+              type="text"
+              nbInput
+              fullWidth=""
+              formControlName="title"
+            />
+          </nb-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Descrição</label>
+          <ckeditor
+            [editor]="Editor"
+            data=""
+            (ready)="onReady($event)"
+            [config]="config"
+            placeholder="Descreva sua notícia"
+          >
+          </ckeditor>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Imagem Banner</label> <br />
+          <app-input-midia
+            [typeFile]="typeFile"
+            [path]="path"
+            [midias]="midias"
+            [arquivo]="selectMidia"
+            (selectFiles)="selectFile($event)"
+          ></app-input-midia>
+        </div>
+      </div>
+
+      @if (selectMidia) {
+        <div style="margin-top: 16px;" class="row">
+          <img class="img-banner-select" [src]="selectMidia.url" [alt]="selectMidia.nome">
+        </div>
+      }
+    </nb-card-body>
+  </form>
+</nb-card>

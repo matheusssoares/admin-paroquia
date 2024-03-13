@@ -1,0 +1,40 @@
+.size-600 {
+  width: 600px;
+}
+.content-add-file .upload {
+  overflow: hidden;
+}
+.files {
+  height: 350px;
+  overflow-y: visible;
+}
+
+.files-card {
+  display: inline-block;
+  width: calc(
+    33.33% - 10px
+  ); /* Define a largura dos cards (ajuste conforme necessário) */
+  margin-bottom: 20px;
+  position: relative;
+  height: 220px;
+  margin-right: 10px;
+  border: 1px solid #CCC;
+}
+
+.img-file {
+  width: 100%;
+  height: 170px;
+}
+
+.botton-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-select-file {
+  margin-left: 5px;
+}
+
+.btn-delete-file {
+  margin-right: 5px;
+}
