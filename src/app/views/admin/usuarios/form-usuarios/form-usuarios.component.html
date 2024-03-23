@@ -1,0 +1,157 @@
+<nb-card
+  size="large"
+  class="card-complete"
+  nbSpinnerStatus="danger"
+  nbSpinnerSize="large"
+  nbSpinnerMessage=""
+  [nbSpinner]="loading"
+>
+  <nb-card-header class="uppercase">
+    @if (id) { Atualizar usuário } @else { Adicionar usuário }
+  </nb-card-header>
+
+  <form class="padding" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <nb-card-body class="grid">
+      <div style="margin-top: -16px" class="row">
+        <div class="col">
+          <label>Nome completo</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="Nome completo"
+              type="text"
+              nbInput
+              fullWidth=""
+              class="uppercase"
+              formControlName="nome"
+            />
+          </nb-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>E-mail</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="email-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="E-mail"
+              type="text"
+              nbInput
+              fullWidth=""
+              formControlName="email"
+            />
+          </nb-form-field>
+        </div>
+
+        <div class="col">
+          <label>Senha</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="lock-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="Senha"
+              type="password"
+              nbInput
+              fullWidth=""
+              formControlName="senha"
+            />
+          </nb-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Data de Nascimento</label>
+          <input
+            formControlName="dataNascimento"
+            nbInput
+            placeholder="Data de Nascimento"
+            [nbDatepicker]="dateTimePicker"
+          />
+          <nb-datepicker #dateTimePicker></nb-datepicker>
+        </div>
+        <div class="col">
+          <label>Sexo</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="clock-outline"></nb-icon>
+            <nb-select formControlName="sexo" placeholder="Sexo" fullWidth="">
+              <nb-option value="Masculino">Masculino</nb-option>
+              <nb-option value="Feminino">Feminino</nb-option>
+              <nb-option value="Outro">Outro</nb-option>
+            </nb-select>
+          </nb-form-field>
+        </div>
+      </div>
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Imagem perfil</label> <br />
+          <app-input-midia
+            [typeFile]="typeFile"
+            [path]="path"
+            [midias]="midias"
+            [arquivo]="selectMidia"
+            (selectFiles)="selectFile($event)"
+          ></app-input-midia>
+        </div>
+      </div>
+
+      @if (selectMidia) {
+      <div style="margin-top: 16px" class="row">
+        <img
+          class="img-banner-select"
+          [src]="selectMidia.url"
+          [alt]="selectMidia.nome"
+        />
+      </div>
+      }
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>WhatsApp</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="phone-call-outline" pack="eva"></nb-icon>
+            <input
+              placeholder="WhatsApp"
+              type="text"
+              nbInput
+              fullWidth=""
+              formControlName="whatsapp"
+              mask="(00) 0000-0000||(00) 00000-0000"
+            />
+          </nb-form-field>
+        </div>
+
+        <div class="col">
+          <label>Perfil</label>
+          <nb-form-field>
+            <nb-icon nbPrefix icon="clock-outline"></nb-icon>
+            <nb-select
+              formControlName="perfil"
+              placeholder="Perfil"
+              fullWidth=""
+            >
+              <nb-option value="Administrador">Administrador</nb-option>
+              <nb-option value="Comum">Comum</nb-option>
+            </nb-select>
+          </nb-form-field>
+        </div>
+      </div>
+    </nb-card-body>
+    <hr class="separate" />
+    <div class="footer">
+      <span>
+        <button
+          [disabled]="!form.valid"
+          nbButton
+          type="submit"
+          status="primary"
+        >
+          Cadastrar
+        </button>
+      </span>
+      <span>
+        <button (click)="close()" type="button" nbButton>Cancelar</button>
+      </span>
+    </div>
+  </form></nb-card
+>

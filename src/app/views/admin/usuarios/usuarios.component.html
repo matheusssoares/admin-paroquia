@@ -1,0 +1,42 @@
+<nb-layout>
+    <nb-layout-column>
+      <nb-card class="container-card"
+      class="container-card"
+      nbSpinnerStatus="danger"
+      nbSpinnerSize="large"
+      nbSpinnerMessage=""
+      [nbSpinner]="loading">
+        <div class="breadcrumbs">
+          <p class="strong">Usuários</p>
+          <div class="left">
+            <button (click)="create()" nbButton status="primary" class="f-right">Novo cadastro</button>
+          </div>
+        </div>
+  
+        <hr class="separate">
+
+        <div class="container">
+          <p-table [value]="items" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Contato</th>
+                    <th>Sexo</th>
+                    <th>Perfil</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-items>
+                <tr>
+                    <td class="uppercase">{{ items.nome }}</td>
+                    <td>{{ items.email }}</td>
+                    <td>{{ items.whatsapp }}</td>
+                    <td>{{ items.sexo }}</td>
+                    <td>{{ items.perfil }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </div>
+      </nb-card>
+    </nb-layout-column>
+  </nb-layout>

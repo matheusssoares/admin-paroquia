@@ -53,12 +53,58 @@
           ></app-input-midia>
         </div>
       </div>
-
       @if (selectMidia) {
-        <div style="margin-top: 16px;" class="row">
-          <img class="img-banner-select" [src]="selectMidia.url" [alt]="selectMidia.nome">
-        </div>
+      <div style="margin-top: 16px" class="row">
+        <img
+          class="img-banner-select"
+          [src]="selectMidia.url"
+          [alt]="selectMidia.nome"
+        />
+      </div>
       }
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <label>Categorias</label>
+          <nb-form-field>
+            <nb-select
+              placeholder="Selecionar categoria"
+              [(selected)]="selectedItemCategory"
+            >
+              @for (item of categorias; track item) {
+              <nb-option [value]="item">Option 0</nb-option>
+              }
+            </nb-select>
+          </nb-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px" class="row">
+        <div class="col-md-6">
+          <nb-toggle formControlName="sendNotification"
+            >Enviar notificação no app?</nb-toggle
+          >
+        </div>
+      </div>
+      <div style="margin-top: 16px" class="row">
+        <div class="col">
+          <nb-toggle formControlName="status">Status</nb-toggle>
+        </div>
+      </div>
     </nb-card-body>
+    <div class="footer">
+      <span>
+        <button
+          [disabled]="!form.valid"
+          nbButton
+          type="submit"
+          status="primary"
+        >
+          Cadastrar
+        </button>
+      </span>
+      <span>
+        <button (click)="close()" type="button" nbButton>Cancelar</button>
+      </span>
+    </div>
   </form>
 </nb-card>

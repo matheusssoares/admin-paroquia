@@ -4,8 +4,9 @@ import {
   User,
   UserCredential,
   authState,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
+  signOut
 } from '@angular/fire/auth';
 import {
   ActivatedRouteSnapshot,
@@ -63,5 +64,15 @@ export class AuthService {
 
   async logout() {
     return await signOut(this.auth);
+  }
+
+  async createAccount(email: string, password: string): Promise<string> {
+    return new Promise(async (resolve, reject) => {
+      await createUserWithEmailAndPassword(this.auth, email, password).then((usuario) => {
+        resolve(usuario.user.uid);
+      }).catch((err) => {
+        reject(err);
+      })
+    })
   }
 }

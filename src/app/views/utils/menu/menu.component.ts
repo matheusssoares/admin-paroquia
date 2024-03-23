@@ -7,7 +7,7 @@ import { SharedModule } from '../../../modules/shared/shared.module';
   standalone: true,
   imports: [SharedModule],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
   items: NbMenuItem[] = [
@@ -15,7 +15,7 @@ export class MenuComponent {
       title: 'DASHBOARD',
       icon: 'home-outline',
       home: true,
-      link: '../../admin/dashboard'
+      link: '../../admin/dashboard',
     },
     {
       title: 'AGENDAS',
@@ -72,8 +72,11 @@ export class MenuComponent {
       icon: 'phone-outline',
       url: 'admin/contatos',
     },
+    {
+      title: 'USUÁRIOS',
+      icon: 'person-add-outline',
+      link: '../../admin/usuarios',
+    },
   ];
-  constructor() {
-    
-  }
+  constructor() {}
 }

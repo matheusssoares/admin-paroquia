@@ -41,4 +41,13 @@ export const routes: Routes = [
     title: 'Paróquia São Joaquim - Notícias',
     canActivate: [AuthService],
   },
+  {
+    path: 'admin/usuarios',
+    loadComponent: () =>
+      import('./views/admin/usuarios/usuarios.component').then(
+        (c) => c.UsuariosComponent
+      ),
+    title: 'Paróquia São Joaquim - Usuários',
+    canActivate: [AuthService],
+  },
 ];

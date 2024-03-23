@@ -26,6 +26,7 @@ export class NoticiasComponent {
       },
       autoFocus: true,
       closeOnBackdropClick: true,
+      hasScroll: true
     });
   }
 

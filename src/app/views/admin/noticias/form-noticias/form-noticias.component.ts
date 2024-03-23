@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { NbDialogRef } from '@nebular/theme';
 import { Midia } from '../../../../models/midia.model';
 import { SharedModule } from '../../../../modules/shared/shared.module';
 import { InputMidiaComponent } from '../../../utils/input-midia/input-midia.component';
@@ -27,6 +28,7 @@ export class FormNoticiasComponent {
   loading: boolean = false;
   title!: string;
   id!: string;
+  selectedItemCategory = '';
   public form: FormGroup = this.fb.group({
     author: [''],
     category: ['', [Validators.required]],
@@ -49,8 +51,12 @@ export class FormNoticiasComponent {
   };
 
   defaultImage: string = 'assets/imgs/lazy-image.png';
+  categorias = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    @Optional() private dialogRef: NbDialogRef<any>,
+    ) {}
 
   public onReady(editor: any) {
     console.log('CKEditor5 Angular Component is ready to use!', editor);
@@ -60,5 +66,9 @@ export class FormNoticiasComponent {
 
   selectFile(event: Midia) {
     this.selectMidia = event;
+  }
+
+  close() {
+    this.dialogRef.close()
   }
 }
